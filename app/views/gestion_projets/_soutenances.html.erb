@@ -1,0 +1,89 @@
+<div id="vuee">
+    <div class="text-center mt-3"><h4>Liste des projets aux soutenances imminentes</h4></div>
+    <div class="row ml-3 mt-2 mb-2">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher">
+        
+     </div>
+     <div class="row">
+            <% @typeProjets.each do |type| %>
+                <div id="typeProject" class="col-md-auto border " >
+                        <div class="text-center"><h4><%= type.Nom%></h4></div>
+                        <%if isEleve?%>
+                            
+                                
+                                <% @projectsE.where("Projet= ?",type.id).each do |proj|%>
+                                    <%if proj.StatutD == 2%>    
+                                        <div class="container-fluid">
+                                            <div class="d-flex">
+                                                <div style="width: 500px;"> 
+                                                    <%= render partial:'projet',locals: {project: proj}%>
+                                                </div>
+                                                <div class="container-fluid">
+                                                    <h5>Date de la Soutenance :</h5>
+                                                    <%if !proj.DateSoutenance.nil?%>
+                                                        <h6><i><%=proj.DateSoutenance.to_s%></i></h6>
+                                                        <h6><b><%=(proj.DateSoutenance.to_date - Time.now.to_date).to_i%> jours restants</b></h6>
+                                                    <% else%>
+                                                        <h6><i>Date à définir</i></h6>
+                                                    <%end%>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%end%>
+                                <%end%>
+                            
+                        <%end%>
+            
+                        <%if isAca?%>
+                            <% @projectsAca.where("Projet = ?",type.id).each do |proj| %> 
+                                <%if proj.StatutD == 2%>    
+                                        <div class="container-fluid">
+                                            <div class="d-flex">
+                                                <div style="width: 500px;"> 
+                                                    <%= render partial:'projet',locals: {project: proj}%>
+                                                </div>
+                                                <div class="container-fluid">
+                                                    <h5>Date de la Soutenance :</h5>
+                                                    <%if !proj.DateSoutenance.nil?%>
+                                                        <h6><i><%=proj.DateSoutenance.to_s%></i></h6>
+                                                        <h6><b><%=(proj.DateSoutenance.to_date - Time.now.to_date).to_i%> jours restants</b></h6>
+                                                    <% else%>
+                                                        <h6><i>Date à définir</i></h6>
+                                                    <%end%>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%end%>
+                            <%end%>
+                        <%end%>
+
+                        <%if isInd?%>
+                            <% @projectsInd.where("Projet = ?",type.id).each do |proj| %> 
+                                <%if proj.StatutD == 2%>    
+                                        <div class="container-fluid">
+                                            <div class="d-flex">
+                                                <div style="width: 500px;"> 
+                                                    <%= render partial:'projet',locals: {project: proj}%>
+                                                </div>
+                                                <div class="container-fluid">
+                                                    <h5>Date de la Soutenance :</h5>
+                                                    <%if !proj.DateSoutenance.nil?%>
+                                                        <h6><i><%=proj.DateSoutenance.to_s%></i></h6>
+                                                        <h6><b><%=(proj.DateSoutenance.to_date - Time.now.to_date).to_i%> jours restants</b></h6>
+                                                    <% else%>
+                                                        <h6><i>Date à définir</i></h6>
+                                                    <%end%>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%end%>
+                            <%end%>
+                        <%end%>
+                    </div>
+            <%end%>
+          </div>              
+</div>
+</div>

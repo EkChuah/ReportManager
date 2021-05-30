@@ -1,0 +1,15 @@
+<div class="modal-body ">
+    <%= form_for item,:remote=>true do |f| %>
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Nom, "Nom du groupe"%>
+        <%= f.text_field :Nom, class:"form-control", placeholder: "Entrez un nom de groupe"%>
+    </div>
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <label>Nom du Président du Jury</label>
+        <%= collection_select(:user, :id, @usersA, :id, :Nom) %>
+    </div>
+    <div class="actions">
+        <%= f.submit "Enregistrer", class: "btn btn-dark" %>
+    </div>
+    <%end%>
+</div>

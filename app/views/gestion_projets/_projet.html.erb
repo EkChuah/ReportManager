@@ -1,0 +1,61 @@
+<div  class ="container projet mt-1">
+    <button type="button"  class="collapsible btn btn-dark"><%=project.Titre%></button>
+    <div class="content"  >
+            <%= link_to "Fiche Projet", project_path(project.id) %>
+            <% Statut_A(project,Rapport.find(project.Rapport))%>
+            <% Statut_B(project)%>
+            <% Statut_C(project,Rapport.find(project.Rapport))%>
+            <% Statut_E(project)%>
+            <% Statut_F(project)%>
+            <% Statut_G(project)%>
+            <% Statut_D(project)%>
+            <div class="row">
+                <h6 class="ml-3">
+                    <b><%=(Groupe.find(project.Groupe)).Nom%></b>
+                <h6>
+                <%if isAca? && project.StatutF==1 && project.StatutD==1%>
+                    <h6 class="ml-3" style="color:red">
+                        Alerte retard
+                    </h6>
+                <% elsif  isInd? && project.StatutE == 1 && project.StatutB == 1%>
+                    <h6  class="ml-3" style="color:red">
+                        Alerte retard
+                    </h6>
+                <% elsif isPresident(project) && project.StatutD == 3 && project.StatutG == 1%>
+                    <h6 class="ml-3" style="color:red">
+                        Alerte retard
+                    </h6>
+                <%end%>
+
+
+            </div>
+            <div  class="progress">
+                <div id="<%=project.id%>" class="progress-bar" style="width: 0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+                <div class="d-flex justify-content-between">
+                        <div style="font-size : 10px">Début</div>
+                        <div style="font-size : 10px">Rapport</div>
+                        <div style="font-size : 10px">Validation</div>
+                        <div style="font-size : 10px">Evaluation</div>
+                        <div style="font-size : 10px">Notation</div>
+                        <div style="font-size : 10px">Soutenance</div>
+                        <div style="font-size : 10px">Notation</div>
+                        <div style="font-size : 10px">Fin</div>
+                </div>
+            
+    </div>
+
+</div>
+
+                  
+
+
+<script>
+
+    var value = <%=progressBar(project)%>;
+    var progressBar = document.getElementById('<%=project.id%>');
+    progressBar.style.width= value + '%';
+    
+    
+    
+</script>

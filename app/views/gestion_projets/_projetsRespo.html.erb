@@ -1,0 +1,15 @@
+
+<div style="overflow:scroll; height:750px;">
+
+    <div class="text-center mt-2"><h4><%= @typeProjetsRespo.Nom%></h4></div> 
+            <% @projects.each do |proj| %>  
+                <%if proj.StatutD != 5%>
+                    <div style="width: 350px;"> 
+                        <%= render partial:'projet',locals: {project: proj}%>
+                    </div>
+                 <%end%>
+            <%end%>    
+    
+</div>
+ 
+

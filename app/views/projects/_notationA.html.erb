@@ -1,0 +1,52 @@
+<div id="vuee" >
+    <%= form_tag '/formulaires' do %>
+        
+        <label>Nom de l'élève concerné</label>
+        <%= collection_select(:user, :id, @eleves, :id, :Nom, name: 'categorie[eleve]') %>
+        
+        <% @categories.each do |categorie| %>
+            <% @empty_noteQuestion = []%>
+            
+
+                <h2 class="mb-1"><%= categorie.Intitule %></h2>
+                <% @questions=Question.where("Categorie = ?",categorie.id).each do%>
+                    <% @empty_noteQuestion << NoteQuestion.new %>
+                <%end%>
+                <div>
+                    <% @empty_noteQuestion.each do |question| %>
+                    <div class="row">
+                        <div class="col-4">
+                            <%= @questions[@empty_noteQuestion.index(question)].Intitule%>
+                        </div>
+                        
+                            <%= fields_for "categorie[question][]",question do |q| %>
+                                <div class="col-4">
+                                    <%=q.collection_radio_buttons(:Note,createList(@questions[@empty_noteQuestion.index(question)]),:first,:last) do |r|%>
+                                        <%= r.radio_button(class: 'radio' + @empty_noteQuestion.index(question).to_s, name: 'categorie[question]['+ @questions[@empty_noteQuestion.index(question)].id.to_s + '][Note]') + r.label(:class =>'radio-label')%>
+                                    <%end%>
+                                </div>
+                                <div class="col-4">
+                                    <%= q.text_field :Commentaire, name: 'categorie[question]['+ @questions[@empty_noteQuestion.index(question)].id.to_s + '][Commentaire]', class:"form-control", placeholder: "Commentaire"%>
+                                </div>
+                                <%= q.hidden_field :Categorie, value: categorie.id, name: 'categorie[question]['+ @questions[@empty_noteQuestion.index(question)].id.to_s + '][Categorie]' %>
+                                <%= q.hidden_field :Question, value: @questions[@empty_noteQuestion.index(question)].id, name: 'categorie[question]['+ @questions[@empty_noteQuestion.index(question)].id.to_s + '][Question]' %>
+                                <%= q.hidden_field :Projet, value: @project.id, name: 'categorie[Projet]' %>
+                                <%= q.hidden_field :typeFiche, value: "Rapport", name: 'categorie[typeFiche]' %>
+                                <%= q.hidden_field :typeProjet, value: @typeProjet.id, name: 'categorie[typeProjet]' %>
+                            <%end%>
+                    </div>
+                
+                        
+                    <%end%>
+                </div>
+                
+            
+            
+            
+        <%end%>
+        <div class="mt-5 mb-5">
+            <%= text_field_tag 'Commentaire','', name: 'categorie[Commentaire]', class:"form-control", placeholder: "Commentaire"%>
+        </div>
+        <%= submit_tag 'submit'%>
+    <%end%>
+</div>

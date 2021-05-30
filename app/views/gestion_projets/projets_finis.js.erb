@@ -1,0 +1,9 @@
+var vue = document.querySelector("#vue");
+$("#vuee").remove();
+vue.insertAdjacentHTML( "beforeend","<%= j render("projets_finis") %>");
+var array=document.querySelectorAll("#typeProject")
+for (i = 0; i < array.length; i++) {
+    if(array[i].childElementCount == 1){
+        array[i].remove();
+    }
+}

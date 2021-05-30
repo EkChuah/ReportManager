@@ -1,0 +1,16 @@
+
+<div class="modal-header">
+    <h5 class="modal-title " >Modification d'un type de projet</h5>
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<%= render partial: 'types', locals: {item: @type_projet}%>
+<div class="modal-footer">
+   <%= link_to 'Fermer',type_projets_path, class:"btn btn-dark  mr-3"  %>
+    
+   
+</div>
+
+               
+    

@@ -1,0 +1,26 @@
+<div class="modal-body ">
+
+    <%= form_for item,:remote=>true do |f| %>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Nom, "Nom"%>
+        <%= f.text_field :Nom, class:"form-control", placeholder: "Entrez un Nom"%>
+    </div>
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <label>Responsable</label>
+        <%= collection_select(:user,:id, @users, :id, :Nom) %>
+    </div>
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :DureeSoutenanceExpose, "Durée de l'exposé de la soutenance"%>
+        <%= f.text_field :DureeSoutenanceExpose, class:"form-control", placeholder: "Précisez la durée de l'exposé"%>
+    </div>
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :DureeSoutenanceQuestions, "Durée des questions de la soutenance"%>
+        <%= f.text_field :DureeSoutenanceQuestions, class:"form-control", placeholder: "Précisez la durée des questions"%>
+    </div>
+
+    <div class="actions">
+        <%= f.submit "Enregistrer", class: "btn btn-dark" %>
+    </div>
+    <%end%>
+</div>

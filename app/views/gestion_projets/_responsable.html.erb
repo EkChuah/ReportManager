@@ -1,0 +1,38 @@
+<div id="vuee">
+    <div class="container-fluid">
+        
+        <div class="row ml-3 mt-2 mb-2">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher">
+        
+        </div>
+        <div class="row">
+            <div class="col-3 border" >
+                    <%= render "projetsRespo"%>
+            </div> 
+            <div class="col-9 border" >
+                    <%= render "newproject"%>  
+
+            </div>  
+            
+        </div>
+    </div>
+</div>
+    
+<script>
+function myFunction() {
+
+  let input, filter, projet;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  projet = document.getElementsByClassName('projet'); 
+
+  for (i = 0; i < projet.length; i++) {  
+        if (!projet[i].innerHTML.toUpperCase().includes(filter)) { 
+            projet[i].style.display="none"; 
+        } 
+        else { 
+            projet[i].style.display="block";                  
+        } 
+    } 
+}
+</script>

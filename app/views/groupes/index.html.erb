@@ -1,0 +1,66 @@
+<%= render 'layouts/menu'%>
+<main role='main'>
+    <div class="container-fluid position-relative" >
+        <div class="row justify-content-md-center bg-light border-top">
+            <div class=" mt-3 mb-3 h2">
+                Groupes
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <div class="container-fluid position-relative border-top mr-5 ml-5 ">
+        <div class="width:200px">
+            <input class=" mt-3 mb-3 col-1" type="text" placeholder="Entrez un nom" aria-label="Nom">
+            <a class="btn btn-dark ml-3" href="#" role="button"> Rechercher</a>
+        </div>
+        <div class="row  justify-content-end mr-5 mb-3 ">
+            <%= link_to 'Ajouter Groupe',new_groupe_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#Ajout',class:"btn btn-success  mr-3"}  %>
+
+            <div id="Ajout" class ="modal hide fade" role="dialog" >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Président du Jury</th>
+                        <th>Actions</th>
+                        
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    <% @groupes.each do |groupe| %>
+                    <tr>
+                        <td> <%= groupe.Nom %></td>
+                        <td> <%= groupe.PresidentDeJury %></td>
+                        <td>
+                             <%= link_to 'Modifier',edit_groupe_path(groupe), {:remote => true, 'data-toggle' => "modal", 'data-target' => '#Edit',class:"btn btn-dark  mr-3"}  %>
+                             <%= link_to 'Supprimer',groupe_path(groupe),method: :delete,data: {confirm: "Etes vous sûr?"},class:"btn btn-danger  mr-3"  %>
+                        </td>
+                    </tr>
+                    <%end%>
+                </tbody>
+            </table>
+
+            <div class="modal" id="Edit" >
+            <div class="modal-dialog modal-dialog-centered " >
+                <div class="modal-content">     
+                </div>
+            </div>
+            </div >
+        </div>       
+    </div>
+</main>
+

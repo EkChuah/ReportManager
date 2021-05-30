@@ -1,0 +1,74 @@
+
+<%= render 'layouts/menu'%>
+
+
+<main role='main'>
+    <div class="container-fluid position-relative" >
+        <div class="row justify-content-md-center bg-light border-top">
+            <div class=" mt-3 mb-3 h2">
+                Projets
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <div class="container-fluid position-relative border-top mr-5 ml-5 ">
+        <div class="width:200px">
+            <input class=" mt-3 mb-3 col-1" type="text" placeholder="Entrez un nom" aria-label="Nom">
+            <a class="btn btn-dark ml-3" href="#" role="button"> Rechercher</a>
+        </div>
+        <div class="row  justify-content-end mr-5 mb-3 ">
+            <%= link_to 'Ajouter Projet',new_project_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#Ajout',class:"btn btn-success  mr-3"}  %>
+
+            <div id="Ajout" class ="modal hide fade" role="dialog" >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Type de Projet</th>
+                        <th>Encadrant Académique</th>
+                        <th>Encadrant Industriel</th>
+                        <th>Groupe</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    <% @projects.each do |project| %>
+                    <tr>
+                        <td> <%= project.Projet %></td>
+                        <td> <%= project.EncadrantAca %></td>
+                        <td> <%= project.EncadrantInd %></td>
+                        <td> <%= project.Groupe %></td>
+                        <td>
+                             <%= link_to 'Modifier',edit_project_path(project), {:remote => true, 'data-toggle' => "modal", 'data-target' => '#Edit',class:"btn btn-dark  mr-3"}  %>   
+                        </td>
+                    </tr>
+                    <%end%>
+                </tbody>
+            </table>
+
+            <div class="modal" id="Edit" >
+            <div class="modal-dialog modal-dialog-centered " >
+                <div class="modal-content">     
+                </div>
+            </div>
+            </div >
+        </div>
+       
+
+    </div>
+</main>
+
+

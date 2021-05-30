@@ -1,0 +1,92 @@
+    <div id="vuee">
+        <div class="row ml-3 mt-2 mb-2">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher">
+        </div>
+        <div class="row ">
+        
+            <% @typeProjets.each do |type| %>
+                <div id="typeProject" class="col-md-auto border" >
+                
+                        <div class="text-center border-bottom mb-3 mt-2"><h4><%= type.Nom%></h4></div>
+                        
+                            <%if isAca?%>
+                                <% @projectsAca.where("Projet = ?",type.id).each do |proj| %>  
+                                    <%if proj.StatutD != 5%>
+                                    <div style="width: 350px;"> 
+                                        <%= render partial:'projet',locals: {project: proj}%>
+                                    </div>
+                                    <%end%>
+                                <%end%>
+                            <%end%>
+                            <%if isInd? %>
+                                <% @projectsInd.where("Projet = ?",type.id).each do |proj| %>
+                                    <%if proj.StatutD != 5%>
+                                    <div style="width: 350px;"> 
+                                        <%= render partial:'projet',locals: {project: proj}%>
+                                    </div>
+                                    <%end%>
+                                <%end%>
+                            <%end%>
+                            <%if isEleve? %>
+                                <% @projectsE.where("Projet = ? ",type.id).each do |proj| %>
+                                    <%if proj.StatutD != 5%>
+                                    <div style="width: 350px;"> 
+                                        <%= render partial:'projet',locals: {project: proj}%>
+                                    </div>
+                                    <%end%>
+                                <%end%>
+                            <%end%>
+                        </div>
+                        
+                
+            <%end%>
+        </div>
+</div>
+</div>
+<script>
+var array=document.querySelectorAll("#typeProject")
+for (i = 0; i < array.length; i++) {
+    if(array[i].childElementCount == 1){
+        array[i].remove();
+    }
+}
+
+</script>
+
+<script>
+function myFunction() {
+
+  let input, filter, projet;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  projet = document.getElementsByClassName('projet'); 
+
+  for (i = 0; i < projet.length; i++) {  
+        if (!projet[i].innerHTML.toUpperCase().includes(filter)) { 
+            projet[i].style.display="none"; 
+        } 
+        else { 
+            projet[i].style.display="block";                  
+        } 
+    } 
+}
+</script>
+
+<script>
+$(".collapsible").click(function () {
+
+    var content = this.nextElementSibling;
+    console.log(content.style.display);
+
+    if (content.style.display === "none") {
+      content.style.display = "block"
+    } else {
+      content.style.display = "none"
+    }
+    
+        
+        
+    
+
+});
+</script>

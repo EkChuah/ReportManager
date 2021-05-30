@@ -1,0 +1,100 @@
+<div id="vuee">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 border mr-5 ml-5 mt-3">
+                <h5 class="text-center ">INFORMATIONS SOUTENANCE </h5>
+                <h5 class="font-weight-bold mt-5">Date de la soutenance :</h5>
+                <h6><%=@project.DateSoutenance%></h6>
+                <h5 class="font-weight-bold mt-3">Durée de l'exposé(minutes) :</h5>
+                <h6> <%=@typeProjet.DureeSoutenanceExpose%></h6>
+                <h5 class="font-weight-bold mt-3">Durée des questions(minutes) :</h5>
+                <h6> <%=@typeProjet.DureeSoutenanceQuestions%></h6>
+
+        </div>
+        <div class="col border ml-5 mr-5 mt-3">
+            <h5 class="text-center ">RAPPORT </h5>
+
+            <p>
+                <h4>Rapport du projet : </h4>
+                <div class="form-inline">
+                    <%if @rapport.pdf.attached?%>
+                        <%= link_to 'Télécharger' ,rails_blob_path(@rapport.pdf,disposition: 'attachement') %>
+                    <%end%>
+                </div>
+            </p>
+        </div>
+
+
+    </div>
+    <div class="row mr-5 ml-5">
+
+        <div class="col-3 border mr-5 mt-5 mb-5">
+            <h5 class="text-center ">Président du Jury </h5>
+            
+            <% if !@groupe.PresidentDeJury.nil?%>
+            <% @president= User.find(@groupe.PresidentDeJury)%>
+            <h6 class="font-weight-bold mt-3">Nom :</h6>
+            <h6> <%=@president.Nom%></h6>
+            <h6 class="font-weight-bold mt-3">Prenom :</h6>
+            <h6><%=@president.Prenom%> </h6>
+            <h6 class="font-weight-bold mt-3">Adresse mail :</h6>
+            <h6> <%=@president.email%></h6>
+            <%end%>
+        </div>
+
+        <div class="col-8 border ml-5 mt-5 mb-5">
+        <div class="row">
+            <div class="col-7">
+            <div style="overflow:scroll; height:400px">
+                <h5 class="text-center ">Membre Jury </h5>
+                <% @idMembreJuries.each do |membreJury|%>
+                <h6 class="font-weight-bold mt-1">Nom,Prenom,email</h6>
+                    <div class="form-inline">
+                        <h6 class="mr-2"> <%=(@membreJury=User.find(membreJury.MembreJury)).Nom%></h6>
+                        <h6 class="mr-2"> <%=@membreJury.Prenom%></h6>
+                        <h6> <%=@membreJury.email%></h6>
+                    </div>
+                    
+                <%end%>
+
+            </div>
+            </div>
+            <% if @project.StatutD >= 2%>
+                <div class="col-4 ml-5 mt-2 mb-5">
+                        <h5 class="text-center mt-3"> Constitution du jury </h5>
+                        <%= link_to 'Ajout d\'un nouveau membre de jury',new_liaison_jury_path(@groupe), {:remote => true, 'data-toggle' => "modal", 'data-target' => '#Ajout',class:"btn btn-primary  mr-1 mt-5"}  %>
+                        <h6 class="text-center mt-5 mb-3">Choix du président de jury </h6>
+                            <%= form_for @groupe do |p|%>
+                                <div class="mt-2 ml-5">
+                                    <%= collection_select(:user,:id, @users, :id, :Nom) %>
+                                </div>
+                                
+                                    <%= p.submit "Enregistrer", class: "btn btn-primary ml-5 mt-4 reload" %>
+                            
+                            <%end%>
+                
+                </div>
+            
+            <div id="Ajout" class ="modal hide fade" role="dialog" >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            
+                    </div>
+                </div>
+            </div>
+            <%end%>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<script>
+        const button = document.querySelector('.reload');
+    button.addEventListener('click', event => {
+  location.reload();
+  
+});
+</script>

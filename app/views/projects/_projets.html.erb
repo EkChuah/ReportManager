@@ -1,0 +1,72 @@
+<div class="modal-body ">
+
+    <%= form_for item,:remote=>true do |f| %>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Projet, "Type de projet"%>
+        <%= f.text_field :Projet, class:"form-control", placeholder: "Préciser le type de projet"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <label>Nom de l'encadrant académique</label>
+        <%= collection_select(:userA, :id, @usersA, :id, :Nom) %>
+    </div>
+
+     <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <label>Nom de l'encadrant industriel</label>
+        <%= collection_select(:userI, :id, @usersI, :id, :Nom) %>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <label>Nom du groupe</label>
+        <%= collection_select(:groupe, :id, @groupes, :id, :Nom) %>
+    </div>
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Titre, "Titre"%>
+        <%= f.text_field :Titre, class:"form-control", placeholder: "Préciser le titre"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Description, "Description"%>
+        <%= f.text_field :Description, class:"form-control", placeholder: "Description du projet"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :DateDebut, "Date de début"%>
+        <%= f.text_field :DateDebut, class:"form-control", placeholder: "Préciser la date de lancement"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :DateFin, "Date de fin"%>
+        <%= f.text_field :DateFin, class:"form-control", placeholder: "Préciser la date de fin"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :DateRenduRapport, "Date de rendu du rapport"%>
+        <%= f.text_field :DateRenduRapport, class:"form-control", placeholder: "Préciser la date de rendu"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :DateEvaluation, "Date de l'évaluation"%>
+        <%= f.text_field :DateEvaluation, class:"form-control", placeholder: "Préciser la date d'évaluation"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :DateNotation, "Date de la notation"%>
+        <%= f.text_field :DateNotation, class:"form-control", placeholder: "Préciser la date de notation"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :DateSoutenance, "Date de la soutenance"%>
+        <%= f.text_field :DateSoutenance, class:"form-control", placeholder: "Préciser la date de soutenance"%>
+    </div>
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :DateNotationSoutenance, "Date de la notation de soutenance"%>
+        <%= f.text_field :DateNotationSoutenance, class:"form-control", placeholder: "Préciser la date de la notation de soutenance"%>
+    </div>
+
+    <div class="actions">
+        <%= f.submit "Enregistrer", class: "btn btn-dark" %>
+    </div>
+    <%end%>
+</div>

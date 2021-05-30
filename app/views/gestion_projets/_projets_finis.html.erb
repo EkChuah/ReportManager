@@ -1,0 +1,68 @@
+<div id="vuee">
+    <div class="text-center mt-3"><h4>Liste des projets finis</h4></div>
+            <div class="row ml-3 mt-2 mb-2">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher">
+        
+            </div>
+            <div  class="row">
+            <% @typeProjets.each do |type| %>
+                <div id="typeProject" class="col-md-auto border " >
+                        <div class="text-center"><h4><%= type.Nom%></h4></div>
+                        <%if isEleve?%>
+                            <%@groupe.each do |grp|%>
+                                <%@projects_eleves=Project.where("Groupe= ?", grp.id)%>
+                                <% @projects_eleves.where("Projet= ?",type.id).each do |proj|%>
+                                    <%if proj.StatutD==5%><!--à remplacer par StatutFin-->    
+                                        <div class="container-fluid">
+                                            <div class="d-flex">
+                                                <div style="width: 500px;"> 
+                                                    <%= render partial:'projet',locals: {project: proj}%>
+                                                </div>
+                                                <div class="container-fluid">
+                                                    <h6><b><i>projet terminé il y a <%=(Time.now.to_date - proj.DateFin.to_date).to_i%> jours</b></i></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%end%>
+                                <%end%>
+                            <%end%>
+                        <%end%>
+            
+                        <%if isAca?%>
+                            <% @projectsAca.where("Projet = ?",type.id).each do |proj| %> 
+                                <%if proj.StatutD == 5%>
+                                    <div class="container-fluid">
+                                        <div class="d-flex">
+                                            <div style="width: 500px;"> 
+                                                <%= render partial:'projet',locals: {project: proj}%>
+                                            </div>
+                                            <div class="container-fluid">
+                                                <h6><b><i>projet terminé il y a <%=(Time.now.to_date - proj.DateFin.to_date).to_i%> jours</b></i></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <%end%>
+                            <%end%>
+                        <%end%>
+
+                        <%if isInd?%>
+                            <% @projectsInd.where("Projet = ?",type.id).each do |proj| %> 
+                                <%if proj.StatutD==5%> 
+                                    <div class="container-fluid">
+                                        <div class="d-flex">
+                                            <div style="width: 500px;"> 
+                                                <%= render partial:'projet',locals: {project: proj}%>
+                                            </div>
+                                            <div class="container-fluid">
+                                                <h6><b><i>projet terminé il y a <%=(Time.now.to_date - proj.DateFin.to_date).to_i%> jours</b></i></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <%end%>
+                            <%end%>
+                        <%end%>
+                    </div>
+            <%end%>
+                    </div>    
+</div>
+</div>

@@ -1,0 +1,52 @@
+<div class="modal-body ">
+
+    <%= form_for item,:remote=>true do |f| %>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Prenom, "Prénom"%>
+        <%= f.text_field :Prenom, class:"form-control", placeholder: "Entrez un prenom"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Nom, "Nom"%>
+        <%= f.text_field :Nom, class:"form-control", placeholder: "Entrez un Nom"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :email, "Email"%>
+        <%= f.text_field :email, class:"form-control", placeholder: "Entrez une adresse mail"%>
+    </div>
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :password_digest, "Mot de passe"%>
+        <%= f.text_field :password_digest, class:"form-control", placeholder: "Entrez un mot de passe"%>
+    </div>
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Langue, "Langue"%>
+        <%= f.text_field :Langue, class:"form-control", placeholder: "Entrez une langue"%>
+    </div>
+    
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Academique, "Encadrant Académique"%>
+        <%= f.check_box :Academique, class:"form-control"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Industriel, "Encadrant Industriel"%>
+        <%= f.check_box :Industriel, class:"form-control"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Eleve, "Elève"%>
+        <%= f.check_box :Eleve, class:"form-control"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Admin, "Administrateur"%>
+        <%= f.check_box :Admin, class:"form-control"%>
+    </div>
+    <div class="actions">
+        <%= f.submit "Enregistrer", class: "btn btn-dark" %>
+    </div>
+    <%end%>
+</div>

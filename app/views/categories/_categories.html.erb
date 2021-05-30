@@ -1,0 +1,19 @@
+<div class="modal-body ">
+
+    <%= form_for item,:remote=>true do |f| %>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Numero, "Numéro"%>
+        <%= f.text_field :Numero, class:"form-control", placeholder: "Entrez un numéro"%>
+    </div>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <%= f.label :Intitule, "Intitulé"%>
+        <%= f.text_field :Intitule, class:"form-control", placeholder: "Entrez un intitulé"%>
+    </div>
+    
+    <div class="actions">
+        <%= f.submit "Enregistrer", class: "btn btn-dark" %>
+    </div>
+    <%end%>
+</div>

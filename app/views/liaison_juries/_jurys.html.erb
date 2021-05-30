@@ -1,0 +1,18 @@
+<div class="modal-body ">
+
+    <%= form_for item,:remote=>true do |f| %>
+
+    <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+        <label>Nom du membre du jury</label>
+        <%= collection_select(:user,:id, @users, :id, :Nom) %>
+    </div>
+
+   <%= f.hidden_field :Groupe,value: params["format"] %>
+
+    <div class="actions">
+        <%= f.submit "Enregistrer", class: "btn btn-dark" %>
+    </div>
+    <%end%>
+
+
+</div>

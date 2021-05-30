@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Telecom_nancy.png" width="100" height="50" alt="" loading="lazy">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="<%=index_path%>">Accueil <span class="sr-only">(current)</span></a>
+      </li>
+      <%if isAdmin? %>
+          <li class="nav-item">
+            <a class="nav-link" href="<%=users_path%>">Utilisateurs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<%=projects_path%>">Projets
+            </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="<%=groupes_path%>">Groupes </a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="<%=liaison_juries_path%>">Jurys </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=type_projets_path%>">Type de Projets </a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="<%=questions_path%>"> Questions </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%=categories_path%>"> Catégories </a>
+            </li>
+          
+        <%end%>
+        
+        
+       
+    </ul>
+    <span class ="navbar-text mr-5">
+      Bonjour <%=current_user.Prenom%> <%=current_user.Nom%>
+    </span>
+    <div clas="dropdown-menu dropdown-menu-right">
+      <%=link_to "Se déconnecter", logout_path, class:"btn btn-danger"%>
+  </div>
+</nav>

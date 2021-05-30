@@ -1,0 +1,30 @@
+<%= render 'layouts/menu'%>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item  mr-2 ml-2 mb-1 mt-1">
+    <%= link_to 'mesProjets', mesProjets_path, :remote => true, 'data-target' => '#mesProjets', class:"btn btn-outline-secondary" %> 
+    </li>
+  <%if isRespo?%>
+  <li class="nav-item  mr-2 mb-1 mt-1">
+  <%= link_to 'responsable', responsable_path, :remote => true, 'data-target' => '#responsable', class:"btn btn-outline-secondary" %>
+     </li>
+  <%end%>
+  <li class="nav-item  mr-2 mb-1 mt-1">
+    <%= link_to 'Soutenances', mesSoutenances_path, :remote => true, 'data-target' => '#soutenances', class:"btn btn-outline-secondary" %>
+  </li>
+   <li class="nav-item  mr-2 mb-1 mt-1">
+  <%= link_to 'Projets finis', projets_finis_path, :remote => true, 'data-target' => '#projets_finis', class:"btn btn-outline-secondary" %>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade in show active ml-3 " id="projets" role="tabpanel" aria-labelledby="projets-tab">
+    <div id="vue">
+      <%= render "mesProjets"%>
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+

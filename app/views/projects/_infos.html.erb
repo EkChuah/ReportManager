@@ -1,0 +1,159 @@
+<div id="vuee">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-7 border ml-5 mt-3">
+            <div class="row">
+                <div class="col-6">
+                    <% Statut_A(@project,Rapport.find(@project.Rapport))%>
+                    <% Statut_B(@project)%>
+                    <% Statut_C(@project,Rapport.find(@project.Rapport))%>
+                    <% Statut_E(@project)%>
+                    <% Statut_F(@project)%>
+                    <% Statut_G(@project)%>
+                    <% Statut_D(@project)%>
+                    <h5 class="text-center ">INFORMATIONS PROJET </h5>
+                    <h5 class="font-weight-bold mt-5">Responsable :</h5>
+                    <h6><%=@respo.Prenom%> <%=@respo.Nom%>, <%=@respo.email%></h6>
+                    <h5 class="font-weight-bold mt-3">Titre :</h5>
+                    <h6> <%=@project.Titre%></h6>
+                    <h5 class="font-weight-bold mt-3">Description :</h5>
+                    <h6> <%=@project.Description%></h6>
+                    <h5 class="font-weight-bold mt-3">Debut :</h5>
+                    <h6> <%=@project.DateDebut%></h6>
+                    <h5 class="font-weight-bold mt-3">Fin :</h5>
+                    <h6> <%=@project.DateFin%></h6>
+                </div>
+                
+                <div class="col-6">
+                <%if isResponsable(@project) && ((@project.StatutD == 2 && @project.DateSoutenance.nil?) || (@project.StatutD == 3 && @project.DateNotationSoutenance.nil?) || (@project.StatutD == 4)) %> 
+                         <h5 class="text-center mt-5 mb-3">Dates à fixer </h5>
+                        <%= form_for @project do |p|%>
+                            <%if isResponsable(@project) && @project.StatutD == 2 && @project.DateSoutenance.nil?%>
+                            <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+                                <%= p.label :DateSoutenance, "Date de la soutenance :"%>
+                                <%= p.text_field :DateSoutenance, class:"form-control", placeholder: "Entrez une date"%>
+                            </div>
+                            <%end%>
+                            <%if isResponsable(@project) && @project.StatutD == 3 && @project.DateNotationSoutenance.nil?%>
+                            <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+                                <%= p.label :DateNotationSoutenance, "Date de la notation de soutenance :"%>
+                                <%= p.text_field :DateNotationSoutenance, class:"form-control", placeholder: "Entrez une date"%>
+                            </div>
+                            <%end%>
+                            <%if isResponsable(@project) && @project.StatutD == 4%>
+                            <div class="form-group col-sm-15 mt-2 ml-5 mr-5">
+                                <%= p.label  "Valider le projet ?"%>
+                                <%= p.check_box :StatutD %>
+                            </div>
+                            <%end%>
+                             
+                                <%= p.submit "Enregistrer", class: "btn btn-primary ml-5 reload" %>
+                        <%end%>
+                <%end%>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="col border ml-5 mr-5 mt-3">
+            <h5 class="text-center ">Rapport </h5>
+
+            <p>
+                <h4>Rapport rendu: </h4>
+                <div class="form-inline">
+                    <%if can_modif_report(@project)%>
+                        <%= form_for @rapport do |r|%>
+                            <%= r.file_field :pdf%>
+                            <%= r.submit "Enregistrer",class: " reload"%>
+                        <%end%>
+                                                                 
+                    <%end%>
+
+                    <%if @rapport.pdf.attached? && can_see_report(@project)%>
+                        <%= link_to 'Télécharger Rapport' ,rails_blob_path(@rapport.pdf,disposition: 'attachement') %>
+                    <%elsif Time.now>@project.DateRenduRapport && current_user.Eleve%>
+                        <p class="text-center"> Date de rendu dépassé</p>
+                    <%else%>
+                        <p class="text-center"> Compte Rendu non disponible</p>
+                    <%end%>
+                
+                </div>
+                 <div>
+                    
+                    <%if @project.StatutC == 1 && current_user.Industriel %>
+                        <h5 class="text-center mt-5 mb-3">Validation du Rapport </h5>
+                        <%= form_for @rapport do |p|%>
+                            <%= p.collection_radio_buttons(:Valide,[[1,"Valider"],[0,"Invalider"]],:first,:last) do |r|%>
+                                <%= r.radio_button(class: "radio1")%>
+                                <%= r.label%>
+                            <%end%>
+                            
+                         <%= p.submit "Enregistrer", class: "btn btn-primary ml-5 reload" %>
+                        <%end%>
+                    <%end%>
+                    </div>
+                <%if @rapport.Confidentiel%>
+                    <h4>Accord de confidentialité: </h4>
+                    <div class="form-inline">
+                        <%= form_for @rapport do |r|%>
+                            <%= r.file_field :confi%>
+                            <%= r.submit "Enregistrer",class: " reload"%>
+                        <%end%>
+                    <% if @rapport.conf.attached?%>    
+                        <%= link_to 'Télécharger' ,rails_blob_path(@rapport.confi,disposition: 'attachement') %>
+                    <%end%>
+                <%end%>
+                </div>
+
+            </p>
+        </div>
+
+
+    </div>
+    <div class="row mr-5 ml-5">
+
+        <div class="col-3 border mr-5 mt-5 mb-5">
+            <h5 class="text-center ">Encadrant Industriel </h5>
+            <h6 class="font-weight-bold mt-3">Nom :</h6>
+            <h6> <%=@encadrantI.Nom%></h6>
+            <h6 class="font-weight-bold mt-3">Prenom :</h6>
+            <h6> <%=@encadrantI.Prenom%></h6>
+            <h6 class="font-weight-bold mt-3">Adresse mail :</h6>
+            <h6> <%=@encadrantI.email%></h6>
+
+        </div>
+        <div class="col-3 border ml-5 mr-5 mt-5 mb-5">
+            <h5 class="text-center ">Encadrant Academique </h5>
+            <h6 class="font-weight-bold mt-3">Nom :</h6>
+            <h6> <%=@encadrantA.Nom%></h6>
+            <h6 class="font-weight-bold mt-3">Prenom :</h6>
+            <h6> <%=@encadrantA.Prenom%></h6>
+            <h6 class="font-weight-bold mt-3">Adresse mail :</h6>
+            <h6> <%=@encadrantA.email%></h6>
+        </div>
+        <div class="col-3 border ml-5 mt-5 mb-5">
+            <h5 class="text-center ">Eleve </h5>
+            <% @users.each do |user|%>
+            <h6 class="font-weight-bold mt-1">Nom,Prenom,email</h6>
+                <div class="form-inline">
+                    <h6 class="mr-2"> <%=(@eleve=User.find(user.EleveID)).Nom%></h6>
+                    <h6> <%=@eleve.Prenom%></h6>
+                </div>
+                <h6> <%=@eleve.email%></h6>
+            <%end%>
+
+        
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<script>
+        const button = document.querySelector('.reload');
+    button.addEventListener('click', event => {
+  location.reload();
+  
+});
+</script>
